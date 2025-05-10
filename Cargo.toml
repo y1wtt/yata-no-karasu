@@ -1,0 +1,7 @@
+[package]
+name = "yata-no-karasu"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+hyper = { version = "1.6.0", features = "http" }
