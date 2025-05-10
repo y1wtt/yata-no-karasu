@@ -6,6 +6,7 @@ const DNS_ENDPOINT: &str = "https://1.1.1.1/dns-query";
 
 
 #[derive(Serialize, Deserialize, Debug)]
+#[allow(non_snake_case)]
 struct DNSAnswer{
     name: String,
     r#type: i8,
@@ -14,6 +15,7 @@ struct DNSAnswer{
 }
 
 #[derive(Serialize, Deserialize, Debug)]
+#[allow(non_snake_case)]
 struct DNSResp {
     Answer: Vec<DNSAnswer>
 }
@@ -35,7 +37,7 @@ async fn get_ip_from_cloudflare() -> Result<DNSResp, Box<dyn std::error::Error>>
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let r_api_key: Result<String, std::env::VarError> = std::env::var(ENV_API_KEY);
-    let api_key:String = match r_api_key {
+    let _api_key:String = match r_api_key {
         Ok(ver) => {
             ver
         }
@@ -44,7 +46,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         }
     };
     let a = get_ip_from_cloudflare().await;
-    let ip = match a {
+    let _ip = match a {
         Ok(resp) => {
             let ip = resp.Answer.get(0).unwrap().data.replace("\"","");
             ip
