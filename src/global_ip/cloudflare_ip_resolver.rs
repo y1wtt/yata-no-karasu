@@ -29,7 +29,12 @@ impl CloudFlareIpResolver {
         let ip_rows: Vec<&str> = response.split("\n").filter(|&s| {
             return s.starts_with("ip=");
         }).collect();
-        ip_rows.get(0).ok_or(Box::new(InvalidResponseBodyError))
+        Ok(
+            ip_rows.get(0)
+                .ok_or(InvalidResponseBodyError)?
+                .replace("ip=", "")
+                .to_string()
+        )
     }
 }
 

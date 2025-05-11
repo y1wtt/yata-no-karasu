@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
+use crate::global_ip::cloudflare_ip_resolver::CloudFlareIpResolver;
+use crate::global_ip::global_ip_resolver::GlobalIpResolver;
 
-mod current_ip;
 mod error;
 mod global_ip;
 
@@ -15,11 +16,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
             ver
         }
         Err(e) => {
-            panic!("Fail to get {} :{}", ENV_API_KEY, e);
+            // panic!("Fail to get {} :{}", ENV_API_KEY, e);
+            "".to_string()
         }
     };
-    let a = current_ip::
-    let _ip = match a {
+    let ipResolver = CloudFlareIpResolver::new();
+    let _ip = match ipResolver.get_current_ip().await {
         Ok(resp) => {
             resp
         }
